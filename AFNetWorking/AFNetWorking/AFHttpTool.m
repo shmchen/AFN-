@@ -15,12 +15,18 @@
 #define KBaseUrl @"http://appdev.1zw.com"
 
 @interface AFHttpTool ()
+/**
+ *  全部任务存放的数组
+ */
 @property (nonatomic, strong) NSMutableArray *allTasks;
 @end
 
 @implementation AFHttpTool
 implementationSingleton(AFHttpTool)
 
+/**
+ *  懒加载
+ */
 - (NSMutableArray *)allTasks
 {
     if (_allTasks == nil) {
@@ -29,6 +35,9 @@ implementationSingleton(AFHttpTool)
     return _allTasks;
 }
 
+/**
+ * 返回当前网络请求task
+ */
 - (NSURLSessionDataTask *)currentDataTask
 {
     return (NSURLSessionDataTask *)[[self baseHttpRequest].tasks lastObject];
@@ -57,6 +66,9 @@ implementationSingleton(AFHttpTool)
     return manager;
 }
 
+/**
+ *  监测网络请求是否可用
+ */
 - (BOOL)isConnectionAvailable
 {
     AFHTTPSessionManager *manager = [self baseHttpRequest];
@@ -111,12 +123,14 @@ implementationSingleton(AFHttpTool)
         failureBlock(error);
     }];
     
+    //当前网络请求任务添加到数组
     [self.allTasks addObject:currentDataTask];
     
+    //返回该网络请求任务
     return currentDataTask;
 }
 
-- (void)postWithPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock
+- (NSURLSessionDataTask *)postWithPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock
 {
     AFHTTPSessionManager *manager = [self baseHttpRequestWithBaseUrl];
     NSURLSessionDataTask *currentDataTask = [manager POST:api parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -125,10 +139,14 @@ implementationSingleton(AFHttpTool)
         failureBlock(error);
     }];
     
+    //当前网络请求任务添加到数组
     [self.allTasks addObject:currentDataTask];
+    
+    //返回该网络请求任务
+    return currentDataTask;
 }
 
-- (void)getWithFullPath:(NSString *)api params:(NSDictionary *)params successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock
+- (NSURLSessionDataTask *)getWithFullPath:(NSString *)api params:(NSDictionary *)params successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock
 {
     AFHTTPSessionManager *manager = [self baseHttpRequest];
     NSURLSessionDataTask *currentDataTask = [manager GET:api parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -137,10 +155,14 @@ implementationSingleton(AFHttpTool)
         failureBlock(error);
     }];
     
+    //当前网络请求任务添加到数组
     [self.allTasks addObject:currentDataTask];
+    
+    //返回该网络请求任务
+    return currentDataTask;
 }
 
-- (void)postWithFullPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock
+- (NSURLSessionDataTask *)postWithFullPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock
 {
     AFHTTPSessionManager *manager = [self baseHttpRequest];
     NSURLSessionDataTask *currentDataTask = [manager POST:api parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -149,7 +171,11 @@ implementationSingleton(AFHttpTool)
         failureBlock(error);
     }];
     
+    //当前网络请求任务添加到数组
     [self.allTasks addObject:currentDataTask];
+    
+    //返回该网络请求任务
+    return currentDataTask;
 }
 
 /**

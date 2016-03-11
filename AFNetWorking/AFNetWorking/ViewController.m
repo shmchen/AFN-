@@ -25,21 +25,11 @@
 {
     NSDictionary *dict = @{@"act":@"index",@"label":@"jkj",@"op":@"index",@"limit":@"20",@"page":@"1"};
     
-    NSURLSessionDataTask *task = [[AFHttpTool shareAFHttpTool] getWithPath:@"index/catlist.html" params:dict successBlock:^(id responseObject) {
+    [[AFHttpTool shareAFHttpTool] getWithPath:@"index/catlist.html" params:dict successBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
     } failureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-    NSLog(@"外部 = %@",task);
-    
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", @"text/html", @"application/json", nil];
-//    [manager GET:@"http://appdev.1zw.com/index/catlist.html" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@",responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
 
     [[AFHttpTool shareAFHttpTool] cancelCurrentOperation];
     

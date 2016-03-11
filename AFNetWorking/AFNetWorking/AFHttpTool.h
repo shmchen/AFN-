@@ -48,13 +48,25 @@ interfaceSingleton(AFHttpTool);
  */
 - (void)cancelAllOperations;
 
+/**
+ *   传一个基于api相对路径的地址
+ */
 -(NSURLSessionDataTask *)getWithPath:(NSString *)api params:(NSDictionary *)params successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
--(void)postWithPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock;
+/**
+ *   传一个基于api相对路径的地址
+ */
+-(NSURLSessionDataTask *)postWithPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock;
 
--(void)getWithFullPath:(NSString *)api params:(NSDictionary *)params successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+/**
+*   传一个绝对路径的网址
+ */
+-(NSURLSessionDataTask *)getWithFullPath:(NSString *)api params:(NSDictionary *)params successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
--(void)postWithFullPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock;
+/**
+ *   传一个绝对路径的网址
+ */
+-(NSURLSessionDataTask *)postWithFullPath:(NSString *)api params:(NSDictionary *)params success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock;
 
 /**
  *  把字典转成JSON字符串
